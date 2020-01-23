@@ -38,6 +38,13 @@ namespace LojaVirtual
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            /*
+             * Session - Configuração
+             */
+            services.AddMemoryCache(); //Guardar os dados na memória
+            services.AddSession(options => {
+
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
