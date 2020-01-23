@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LojaVirtual.Repositories
 {
-    interface IClienteRepository
+    public interface IClienteRepository
     {
         Cliente Login(string Email, string Senha);
 
