@@ -56,7 +56,13 @@ namespace LojaVirtual
             services.AddScoped<Sessao>();
             services.AddScoped<LoginCliente>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options => {
+                options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(x => "O campo deve ser preenchido!");
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddSessionStateTempDataProvider();
+
+            services.AddSession(options => { options.Cookie.IsEssential = true; });
 
             string connection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaVirtual;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             services.AddDbContext<LojaVirtualContext>(options => options.UseSqlServer(connection));
