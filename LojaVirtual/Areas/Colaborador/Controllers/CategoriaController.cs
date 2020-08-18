@@ -20,9 +20,9 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
             _categoriaRepository = categoriaRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? pagina)
         {
-            List<Categoria> categorias = _categoriaRepository.ObterTodasCategorias().ToList();
+            var categorias = _categoriaRepository.ObterTodasCategorias(pagina);
             return View(categorias);
         }
 

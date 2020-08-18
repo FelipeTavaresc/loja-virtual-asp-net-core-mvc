@@ -1,7 +1,8 @@
-﻿@model List<LojaVirtual.Models.Categoria>
+﻿@model X.PagedList.IPagedList<LojaVirtual.Models.Categoria>
 @{
     ViewData["Title"] = "Index";
 }
+
 
 <h1>Index</h1>
 
@@ -9,3 +10,4 @@
 {
     @categoria.Nome<br />
 }
+@Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina }))
