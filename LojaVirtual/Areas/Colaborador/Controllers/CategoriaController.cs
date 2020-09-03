@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LojaVirtual.Libraries.Filtro;
 using LojaVirtual.Models;
 using LojaVirtual.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace LojaVirtual.Areas.Colaborador.Controllers
 {
     [Area("Colaborador")]
-    //TODO - Habilitar Verificação de Login
-    //[ColaboradorAutorizacao]
+    [ColaboradorAutorizacao]
     public class CategoriaController : Controller
     {
         private ICategoriaRepository _categoriaRepository;
