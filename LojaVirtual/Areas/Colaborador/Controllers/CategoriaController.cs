@@ -30,8 +30,7 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
-            ViewBag.Categorias = _categoriaRepository.ObterTodasCategorias()
-                                                     .Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
+            ViewBag.Categorias = _categoriaRepository.ObterTodasCategorias().Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
             return View();
         }
         [HttpPost]
@@ -40,25 +39,31 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
             if (ModelState.IsValid)
             {
                 _categoriaRepository.Cadastrar(categoria);
-
                 TempData["MSG_S"] = "Registro salvo com sucesso!";
-
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Categorias = _categoriaRepository.ObterTodasCategorias()
-                                                     .Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
+            ViewBag.Categorias = _categoriaRepository.ObterTodasCategorias().Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
             return View();
         }
 
         [HttpGet]
         public IActionResult Atualizar(int id)
         {
-            return View();
+            var categoria = _categoriaRepository.ObterCategoria(id);
+            ViewBag.Categorias = _categoriaRepository.ObterTodasCategorias().Where(x => x.Id != id).Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
+            return View(categoria);
         }
 
         [HttpPost]
-        public IActionResult Atualizar([FromForm]Categoria categoria)
+        public IActionResult Atualizar([FromForm]Categoria categoria, int id)
         {
+            if (ModelState.IsValid)
+            {
+                _categoriaRepository.Atualizar(categoria);
+                TempData["MSG_S"] = "Registro salvo com sucesso!";
+                return RedirectToAction(nameof(Index));
+            }
+            ViewBag.Categorias = _categoriaRepository.ObterTodasCategorias().Where(x => x.Id != id).Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
             return View();
         }
 
